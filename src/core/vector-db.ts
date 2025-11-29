@@ -29,8 +29,6 @@ export class ChromaVectorDB {
     }
 
     try {
-      console.log('Initializing Chroma Vector DB...');
-      
       // Test connection
       await this.client.heartbeat();
       
@@ -38,8 +36,6 @@ export class ChromaVectorDB {
 
       // Load existing collections
       await this.loadCollections();
-      
-      console.log('Chroma Vector DB initialized successfully');
 
     } catch (error) {
       console.error('Failed to initialize Chroma Vector DB', error);

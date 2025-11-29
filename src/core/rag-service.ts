@@ -37,12 +37,12 @@ export class RAGService {
     }
 
     try {
-      console.log('Initializing RAG service...');
-      
       // Initialize embeddings
+      process.stdout.write('Initializing embedding model... ');
       await this.embeddings.initialize();
+      console.log('✓');
       
-      // Initialize vector DB
+      // Initialize vector DB (message handled in index.tsx)
       await this.vectorDb.initialize();
       
       // Ensure directories exist
@@ -50,7 +50,6 @@ export class RAGService {
       this.ensureDirectory(config.rag.embeddingsCachePath);
 
       this.initialized = true;
-      console.log('RAG service initialized successfully');
 
     } catch (error) {
       console.error('Failed to initialize RAG service', error);

@@ -2,6 +2,7 @@ import { ollamaClient, OllamaMessage } from './client';
 import { vectorDb } from '../core/vector-db';
 import { embeddingService } from '../core/embeddings';
 import { config } from '../config';
+import { getRAGPersonality } from '../core/personality';
 import { QueryRequest, QueryResponse, SearchResult } from '../types';
 
 export class RAGChat {
@@ -54,10 +55,8 @@ export class RAGChat {
       // Format context for LLM
       const context = this.formatContext(searchResults);
 
-      // Create prompt with context
-      const systemPrompt = `You are an AI assistant that answers questions based on the provided documents. 
-Use only the information from the context to answer. If you cannot find the answer in the context, say that you don't have enough information.
-Cite sources when possible (e.g., [Source, Page X]).`;
+      // Create prompt with context (using personality file)
+      const systemPrompt = getRAGPersonality();
 
       const userPrompt = `Context from documents:
 ${context}
@@ -150,10 +149,8 @@ Answer the question using only the information from the context above.`;
       // Format context for LLM
       const context = this.formatContext(searchResults);
 
-      // Create prompt with context
-      const systemPrompt = `You are an AI assistant that answers questions based on the provided documents. 
-Use only the information from the context to answer. If you cannot find the answer in the context, say that you don't have enough information.
-Cite sources when possible (e.g., [Source, Page X]).`;
+      // Create prompt with context (using personality file)
+      const systemPrompt = getRAGPersonality();
 
       const userPrompt = `Context from documents:
 ${context}

@@ -4,6 +4,7 @@ import { ollamaClient, OllamaMessage } from '../ollama/client';
 import { ragChat } from '../ollama/rag-chat';
 import { ragService } from '../core/rag-service';
 import { config } from '../config';
+import { getPersonality } from '../core/personality';
 import { ChatView } from './components/ChatView';
 import { Input } from './components/Input';
 import { StatusBar } from './components/StatusBar';
@@ -122,19 +123,32 @@ export function App() {
           setMessages(prev => [...prev, {
             role: 'assistant',
             content: `Available commands:\n` +
-              `/help - Show this message\n` +
-              `/upload <filepath> [collection] - Upload PDF/TXT\n` +
-              `/collections - List collections with documents\n` +
-              `/collection <name> - Switch active collection\n` +
-              `/status - Show system status\n` +
-              `/coldel <name> - Delete collection\n` +
-              `/col <name> del <num> - Delete document from collection\n\n` +
+              `\x1b[33m/help\x1b[0m - Show this message\n` +
+              `\x1b[33m/upload <filepath> [collection]\x1b[0m - Upload PDF/TXT\n` +
+              `\x1b[33m/collections\x1b[0m - List collections with documents\n` +
+              `\x1b[33m/collection <name>\x1b[0m - Switch active collection\n` +
+              `\x1b[33m/status\x1b[0m - Show system status\n` +
+              `\x1b[33m/coldel <name>\x1b[0m - Delete collection\n` +
+              `\x1b[33m/col <name> del <num>\x1b[0m - Delete document from collection\n` +
+              `\x1b[33m/exit\x1b[0m or \x1b[33m/bye\x1b[0m - Exit the application\n\n` +
               `For RAG queries (search in documents):\n` +
-              `@rag <question> - Search in documents\n` +
-              `/rag <question> - Search in documents\n` +
-              `? <question> - Search in documents\n\n` +
+              `\x1b[33m@rag <question>\x1b[0m - Search in documents\n` +
+              `\x1b[33m/rag <question>\x1b[0m - Search in documents\n` +
+              `\x1b[33m? <question>\x1b[0m - Search in documents\n\n` +
               `For normal conversation, type directly without prefix.`
           }]);
+          return;
+
+        case 'exit':
+        case 'bye':
+          setMessages(prev => [...prev, {
+            role: 'assistant',
+            content: 'Goodbye! 👋'
+          }]);
+          // Give a moment for the message to display, then exit
+          setTimeout(() => {
+            process.exit(0);
+          }, 500);
           return;
 
         case 'upload':
@@ -482,7 +496,7 @@ export function App() {
         const messages: OllamaMessage[] = [
           { 
             role: 'system', 
-            content: 'You are a friendly and helpful AI assistant. Answer questions and help the user.' 
+            content: getPersonality()
           },
           { role: 'user', content: queryText }
         ];

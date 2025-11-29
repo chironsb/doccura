@@ -36,6 +36,10 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # User data (documents, embeddings, vector DB)
 data/
 
+# Ollama runtime files
+.ollama.pid
+.ollama.log
+
 # Project documentation (kept locally, not for GitHub)
 PLAN.md
 PROJECT.md

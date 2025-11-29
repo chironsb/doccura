@@ -10,6 +10,7 @@ Doccura - Local RAG system with terminal interface. Run as TUI application or MC
 - 📄 PDF and TXT document support
 - 🐳 Docker MCP server support
 - 💾 Local storage (everything in `data/` folder)
+- 🎭 Customizable AI personality via `personality.txt`
 
 ## Prerequisites
 
@@ -58,6 +59,7 @@ bun run dev
 - `/status` - Show system status
 - `/coldel <name>` - Delete collection
 - `/col <name> del <num>` - Delete document from collection
+- `/exit` or `/bye` - Exit the application
 
 **RAG Queries:**
 - `@rag <question>` - Search in documents
@@ -92,6 +94,8 @@ docker-compose up --build
 
 ## Configuration
 
+### Environment Variables
+
 Edit `.env` file or set environment variables:
 
 ```env
@@ -115,7 +119,26 @@ CHROMA_PATH=./data/chroma
 DOCUMENTS_PATH=./data/documents
 EMBEDDINGS_CACHE_PATH=./data/embeddings
 MAX_FILE_SIZE_MB=50
+
+# Personality (optional)
+PERSONALITY_FILE=./personality.txt
+RAG_PERSONALITY_FILE=./rag-personality.txt
 ```
+
+### AI Personality
+
+Customize the AI's personality by editing `personality.txt` in the project root. This file defines how the AI behaves in normal conversations.
+
+Example `personality.txt`:
+```
+You are a friendly and helpful AI assistant. Answer questions and help the user.
+
+You are knowledgeable, patient, and clear in your explanations. You adapt your communication style to the user's needs and provide helpful, accurate information.
+```
+
+For RAG queries (when searching documents), you can create a separate `rag-personality.txt` file. If it doesn't exist, the system will use a default RAG-specific personality.
+
+The personality file is loaded at runtime, so you can modify it before starting the application without rebuilding.
 
 ## Project Structure
 

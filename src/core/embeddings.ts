@@ -16,14 +16,11 @@ export class LocalEmbeddingService {
     }
 
     try {
-      console.log(`Initializing embedding model: ${config.rag.embeddingModel}`);
-
       // Load the model - this might take a while on first run
       const { pipeline } = await import('@xenova/transformers');
       this.extractor = await pipeline('feature-extraction', config.rag.embeddingModel);
 
       this.initialized = true;
-      console.log('Embedding model initialized successfully');
 
     } catch (error) {
       console.error('Failed to initialize embedding model', error);
