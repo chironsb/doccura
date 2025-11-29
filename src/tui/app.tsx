@@ -123,18 +123,18 @@ export function App() {
           setMessages(prev => [...prev, {
             role: 'assistant',
             content: `Available commands:\n` +
-              `\x1b[33m/help\x1b[0m - Show this message\n` +
-              `\x1b[33m/upload <filepath> [collection]\x1b[0m - Upload PDF/TXT\n` +
-              `\x1b[33m/collections\x1b[0m - List collections with documents\n` +
-              `\x1b[33m/collection <name>\x1b[0m - Switch active collection\n` +
-              `\x1b[33m/status\x1b[0m - Show system status\n` +
-              `\x1b[33m/coldel <name>\x1b[0m - Delete collection\n` +
-              `\x1b[33m/col <name> del <num>\x1b[0m - Delete document from collection\n` +
-              `\x1b[33m/exit\x1b[0m or \x1b[33m/bye\x1b[0m - Exit the application\n\n` +
+              `\x1b[32m/help\x1b[0m - Show this message\n` +
+              `\x1b[32m/upload <filepath> [collection]\x1b[0m - Upload PDF/TXT\n` +
+              `\x1b[32m/collections\x1b[0m - List collections with documents\n` +
+              `\x1b[32m/collection <name>\x1b[0m - Switch active collection\n` +
+              `\x1b[32m/status\x1b[0m - Show system status\n` +
+              `\x1b[32m/coldel <name>\x1b[0m - Delete collection\n` +
+              `\x1b[32m/col <name> del <num>\x1b[0m - Delete document from collection\n` +
+              `\x1b[32m/exit\x1b[0m or \x1b[32m/bye\x1b[0m - Exit the application\n\n` +
               `For RAG queries (search in documents):\n` +
-              `\x1b[33m@rag <question>\x1b[0m - Search in documents\n` +
-              `\x1b[33m/rag <question>\x1b[0m - Search in documents\n` +
-              `\x1b[33m? <question>\x1b[0m - Search in documents\n\n` +
+              `\x1b[32m@rag <question>\x1b[0m - Search in documents\n` +
+              `\x1b[32m/rag <question>\x1b[0m - Search in documents\n` +
+              `\x1b[32m? <question>\x1b[0m - Search in documents\n\n` +
               `For normal conversation, type directly without prefix.`
           }]);
           return;
@@ -384,11 +384,11 @@ export function App() {
           setMessages(prev => [...prev, {
             role: 'assistant',
             content: `Status:\n` +
-              `${ollamaStatus === 'online' ? '🟢' : '🔴'} Ollama: ${ollamaStatus}\n` +
-              `📦 Model: ${config.ollama.model}\n` +
-              `📚 Active collection: ${currentCollection || 'none'}\n` +
-              `📊 Total collections: ${cols.length}\n` +
-              `🔢 Chunks in collection: ${currentCol?.chunkCount || 0}`
+              `${ollamaStatus === 'online' ? '🟢' : '🔴'} Ollama: \x1b[32m${ollamaStatus}\x1b[0m\n` +
+              `📦 Model: \x1b[32m${config.ollama.model}\x1b[0m\n` +
+              `📚 Active collection: \x1b[32m${currentCollection || 'none'}\x1b[0m\n` +
+              `📊 Total collections: \x1b[32m${cols.length}\x1b[0m\n` +
+              `🔢 Chunks in collection: \x1b[32m${currentCol?.chunkCount || 0}\x1b[0m`
           }]);
           return;
 
